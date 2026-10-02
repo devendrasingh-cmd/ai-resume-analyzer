@@ -7,6 +7,7 @@ const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const resumeRoutes = require("./routes/resumeRoutes");
+const analysisRoutes = require("./routes/analysisRoutes");
 
 dotenv.config();
 
@@ -29,7 +30,7 @@ const authLimiter = rateLimit({
   legacyHeaders: false,
 });
 
-app.get("/health", async (req, res) => {
+app.get("/health", (req, res) => {
   res.json({
     status: "ok",
   });
@@ -37,6 +38,7 @@ app.get("/health", async (req, res) => {
 
 app.use("/api/auth", authLimiter, authRoutes);
 app.use("/api/resumes", resumeRoutes);
+app.use("/api/analyses", analysisRoutes);
 
 const PORT = process.env.PORT || 5000;
 
