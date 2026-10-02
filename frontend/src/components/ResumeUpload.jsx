@@ -120,7 +120,7 @@ function ResumeUpload({ jobDescription, onAnalysisComplete }) {
       </button>
 
       <p className="mt-2 text-xs text-slate-500">
-        PDF, DOC or DOCX • Maximum 5 MB
+        PDF, DOC or DOCX â€¢ Maximum 5 MB
       </p>
 
       {message && (
