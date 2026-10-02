@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: ai-resume-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend/uploads:/app/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: ai-resume-frontend
+    ports:
+      - "5174:5173"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
