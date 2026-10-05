@@ -39,3 +39,31 @@ jobs:
 
       - name: Build Docker images
         run: docker compose build
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build backend Docker image
+        if: github.event_name == 'push'
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/backend:latest
+          
+      - name: Build frontend Docker image
+        if: github.event_name == 'push'
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}/frontend:latest
+
+      - name: Push backend Docker image
+        if: github.event_name == 'push'
+        run: |
+          docker push ghcr.io/${{ github.repository }}/backend:latest
+
+      - name: Push frontend Docker image
+        if: github.event_name == 'push'
+        run: |
+          docker push ghcr.io/${{ github.repository }}/frontend:latest
