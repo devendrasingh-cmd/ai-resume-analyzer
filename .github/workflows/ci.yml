@@ -50,20 +50,16 @@ jobs:
 
       - name: Build backend Docker image
         if: github.event_name == 'push'
-        run: |
-          docker build -t ghcr.io/${{ github.repository }}/backend:latest
-          
+        run: docker build -t ghcr.io/${{ github.repository }}/backend:latest ./backend
+
       - name: Build frontend Docker image
         if: github.event_name == 'push'
-        run: |
-          docker build -t ghcr.io/${{ github.repository }}/frontend:latest
+        run: docker build -t ghcr.io/${{ github.repository }}/frontend:latest ./frontend
 
       - name: Push backend Docker image
         if: github.event_name == 'push'
-        run: |
-          docker push ghcr.io/${{ github.repository }}/backend:latest
+        run: docker push ghcr.io/${{ github.repository }}/backend:latest
 
       - name: Push frontend Docker image
         if: github.event_name == 'push'
-        run: |
-          docker push ghcr.io/${{ github.repository }}/frontend:latest
+        run: docker push ghcr.io/${{ github.repository }}/frontend:latest
